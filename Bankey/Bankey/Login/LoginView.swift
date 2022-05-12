@@ -99,10 +99,6 @@ extension LoginView: UITextFieldDelegate {
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return textField.text != ""
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        return true
     }
 }
