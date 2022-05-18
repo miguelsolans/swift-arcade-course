@@ -14,17 +14,36 @@ class OnboardingViewController: UIViewController {
     let label = UILabel();
     let imageView = UIImageView();
     
+    let heroImageName: String;
+    let titleText: String;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
         style();
         layout();
     }
+    
+    init(heroImageName: String, titleText: String) {
+        self.heroImageName = heroImageName;
+        self.titleText = titleText;
+        
+        super.init(nibName: nil, bundle: nil);
+    }
+    
+    // Constructor we need to override when we aren't using Storyboards
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
 }
 
 
 extension OnboardingViewController {
     func style() {
+        self.view.backgroundColor = .systemBackground;
+        
         self.stackView.translatesAutoresizingMaskIntoConstraints = false;
         self.stackView.axis = .vertical;
         self.stackView.spacing = 20;
@@ -35,12 +54,12 @@ extension OnboardingViewController {
         self.label.textAlignment = .center;
         self.label.adjustsFontForContentSizeCategory = true
         self.label.numberOfLines = 0;
-        self.label.text = "Bankey is faster, easier to use, and has a brand new look and feel that will make you feel like you are back in 1989.";
+        self.label.text = self.titleText;
         
         
         self.imageView.translatesAutoresizingMaskIntoConstraints = false;
         self.imageView.contentMode = .scaleAspectFit
-        self.imageView.image = UIImage(named: "delorean")
+        self.imageView.image = UIImage(named: self.heroImageName)
     }
     
     func layout() {
