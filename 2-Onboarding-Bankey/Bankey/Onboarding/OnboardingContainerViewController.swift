@@ -7,14 +7,18 @@
 
 import UIKit
 
+protocol OnboardingContainerViewControllerDelegate: AnyObject {
+    func didFinishOnboarding();
+}
+
 class OnboardingContainerViewController: UIViewController {
 
+    weak var delegate: OnboardingContainerViewControllerDelegate?;
+    
     let pageViewController: UIPageViewController
     var pages = [UIViewController]()
-    var currentVC: UIViewController {
-        didSet {
-        }
-    }
+    var currentVC: UIViewController
+    @objc let closeButton = UIButton(type: .system);
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -32,15 +36,7 @@ class OnboardingContainerViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .systemPurple
-        
+    private func setup() {
         
         // We use these three lines every time we want to embed a ViewController on another ViewController
         addChild(pageViewController)
@@ -59,6 +55,38 @@ class OnboardingContainerViewController: UIViewController {
         
         pageViewController.setViewControllers([pages.first!], direction: .forward, animated: false, completion: nil)
         currentVC = pages.first!
+    }
+    
+    private func style() {
+        view.backgroundColor = .systemPurple
+        
+        closeButton.translatesAutoresizingMaskIntoConstraints = false;
+        closeButton.setTitle("Close", for: []);
+        closeButton.addTarget(self, action: #selector(closeTapped(_:)), for: .touchUpInside);
+        
+        view.addSubview(closeButton);
+    }
+    
+    private func layout() {
+        // Close
+        NSLayoutConstraint.activate([
+            closeButton.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
+            closeButton.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 1)
+        ]);
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.setup();
+        self.style();
+        self.layout();
+        
+        
     }
 }
 
@@ -92,4 +120,12 @@ extension OnboardingContainerViewController: UIPageViewControllerDataSource {
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return pages.firstIndex(of: self.currentVC) ?? 0
     }
+}
+
+// MARK: - Actions
+extension OnboardingContainerViewController {
+    @objc func closeTapped(_ sender: UIButton?) {
+        self.delegate?.didFinishOnboarding();
+    }
+    
 }

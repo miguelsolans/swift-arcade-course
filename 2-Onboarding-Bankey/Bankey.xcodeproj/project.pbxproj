@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B5DB88F283FDEA70060ACBC /* LocaleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5DB88E283FDEA70060ACBC /* LocaleState.swift */; };
 		8BB1C7A82835612B0078DB08 /* OnboardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1C7A72835612B0078DB08 /* OnboardingContainerViewController.swift */; };
 		8BB1C7AA283566B20078DB08 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1C7A9283566B20078DB08 /* OnboardingViewController.swift */; };
 		8BD665A4282B1C1300995301 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD665A3282B1C1300995301 /* AppDelegate.swift */; };
@@ -14,9 +15,11 @@
 		8BD665AD282B1C1400995301 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BD665AC282B1C1400995301 /* Assets.xcassets */; };
 		8BD665B0282B1C1400995301 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BD665AE282B1C1400995301 /* LaunchScreen.storyboard */; };
 		8BD665BB282B1EC200995301 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD665BA282B1EC200995301 /* LoginView.swift */; };
+		8BEF576D283BF4EF0071DFC0 /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF576C283BF4EF0071DFC0 /* DummyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B5DB88E283FDEA70060ACBC /* LocaleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleState.swift; sourceTree = "<group>"; };
 		8BB1C7A72835612B0078DB08 /* OnboardingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerViewController.swift; sourceTree = "<group>"; };
 		8BB1C7A9283566B20078DB08 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		8BD665A0282B1C1300995301 /* Bankey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bankey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +29,7 @@
 		8BD665AF282B1C1400995301 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BD665B1282B1C1400995301 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BD665BA282B1EC200995301 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		8BEF576C283BF4EF0071DFC0 /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +52,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		8B5DB88D283FDE950060ACBC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8B5DB88E283FDEA70060ACBC /* LocaleState.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		8BD66597282B1C1300995301 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +79,7 @@
 		8BD665A2282B1C1300995301 /* Bankey */ = {
 			isa = PBXGroup;
 			children = (
+				8B5DB88D283FDE950060ACBC /* Utils */,
 				8B577CA52834046E0093639C /* Onboarding */,
 				8BD665B9282B1E9000995301 /* Login */,
 				8BD665A3282B1C1300995301 /* AppDelegate.swift */,
@@ -88,6 +101,7 @@
 		8BD665B9282B1E9000995301 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				8BEF576C283BF4EF0071DFC0 /* DummyViewController.swift */,
 				8BD665A7282B1C1300995301 /* LoginViewController.swift */,
 				8BD665BA282B1EC200995301 /* LoginView.swift */,
 			);
@@ -165,6 +179,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BD665BB282B1EC200995301 /* LoginView.swift in Sources */,
+				8BEF576D283BF4EF0071DFC0 /* DummyViewController.swift in Sources */,
+				8B5DB88F283FDEA70060ACBC /* LocaleState.swift in Sources */,
 				8BD665A8282B1C1300995301 /* LoginViewController.swift in Sources */,
 				8BB1C7AA283566B20078DB08 /* OnboardingViewController.swift in Sources */,
 				8BD665A4282B1C1300995301 /* AppDelegate.swift in Sources */,

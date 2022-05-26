@@ -7,8 +7,25 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
 
+protocol LogoutDelegate: AnyObject {
+    func didLogout();
+}
+
+protocol LoginViewControllerDelegate: AnyObject {
+    // convention to pass data to whoever conforms this delegate
+    // func didLogin(_ sender: LoginViewController)
+    
+    
+    func didLogin()
+}
+
+class LoginViewController: UIViewController {
+    
+    // weak to avoid retain cycles
+    weak var delegate: LoginViewControllerDelegate?
+    
+    
     let loginView = LoginView();
     
     let appTitleLabel = UILabel();
@@ -32,6 +49,10 @@ class LoginViewController: UIViewController {
         self.style()
         self.layout();
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.signInButton.configuration?.showsActivityIndicator = false
     }
 
 }
@@ -129,8 +150,9 @@ extension LoginViewController {
             self.configureView(withMessage: "Username / Password cannot be blank")
         }
         
-        if username == "Miguel" && password == "Welcome" {
+        if username == "Miguel" && password == "welcome" {
             signInButton.configuration?.showsActivityIndicator = true;
+            self.delegate?.didLogin()
         } else {
             self.configureView(withMessage: "Incorrect Username / Password");
         }

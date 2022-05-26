@@ -12,16 +12,73 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    let loginViewController = LoginViewController();
+    let onboardingContainerViewController = OnboardingContainerViewController();
+    let dummyViewController = DummyViewController()
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds);
         window?.makeKeyAndVisible();
         window?.backgroundColor = .systemBackground;
         
-        window?.rootViewController = OnboardingContainerViewController()
+        self.onboardingContainerViewController.delegate = self;
+        self.loginViewController.delegate = self;
+        
+        self.dummyViewController.logoutDelegate = self;
+        
+        window?.rootViewController = self.loginViewController
         
         return true
     }
     
+    
+    
 }
 
+
+extension AppDelegate : LoginViewControllerDelegate {
+    func didLogin() {
+        print("AppDelegate - Did Login")
+        
+        if(!LocaleState.hasOnboarded) {
+            self.setRootViewController(onboardingContainerViewController);
+        } else {
+            self.setRootViewController(dummyViewController)
+        }
+        
+        
+    }
+}
+
+extension AppDelegate : OnboardingContainerViewControllerDelegate {
+    func didFinishOnboarding() {
+        print("AppDelegate - Did Finish Onboarding")
+        
+        LocaleState.hasOnboarded = true;
+        self.setRootViewController(dummyViewController)
+    }
+}
+
+extension AppDelegate {
+    func setRootViewController(_ viewController: UIViewController, animated: Bool = true) {
+        guard animated, let window = self.window else {
+            self.window?.rootViewController = viewController;
+            self.window?.makeKeyAndVisible();
+            return;
+        }
+        
+        window.rootViewController = viewController;
+        window.makeKeyAndVisible();
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil);
+    }
+}
+
+extension AppDelegate : LogoutDelegate {
+    func didLogout() {
+        print("AppDelegate - didLogout")
+        
+        self.setRootViewController(loginViewController)
+    }
+}
