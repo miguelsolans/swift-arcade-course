@@ -34,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.mainViewController.selectedIndex = 1
         
-        window?.rootViewController = self.loginViewController
+        // window?.rootViewController = self.loginViewController
+        window?.rootViewController = AccountSummaryViewController();
         
         return true
     }

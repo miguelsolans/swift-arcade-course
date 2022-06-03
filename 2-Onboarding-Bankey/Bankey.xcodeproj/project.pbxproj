@@ -10,6 +10,7 @@
 		8B53E97728467AF200486A74 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B53E97628467AF200486A74 /* UIViewController+Utils.swift */; };
 		8B53E97928467CF000486A74 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B53E97828467CF000486A74 /* MainViewController.swift */; };
 		8B5DB88F283FDEA70060ACBC /* LocaleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5DB88E283FDEA70060ACBC /* LocaleState.swift */; };
+		8B6155B7284A6F6700DB30E6 /* AccountSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6155B6284A6F6700DB30E6 /* AccountSummaryViewController.swift */; };
 		8BB1C7A82835612B0078DB08 /* OnboardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1C7A72835612B0078DB08 /* OnboardingContainerViewController.swift */; };
 		8BB1C7AA283566B20078DB08 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1C7A9283566B20078DB08 /* OnboardingViewController.swift */; };
 		8BD665A4282B1C1300995301 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD665A3282B1C1300995301 /* AppDelegate.swift */; };
@@ -22,8 +23,9 @@
 
 /* Begin PBXFileReference section */
 		8B53E97628467AF200486A74 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
-		8B53E97828467CF000486A74 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Bankey/MainViewController.swift; sourceTree = "<group>"; };
+		8B53E97828467CF000486A74 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8B5DB88E283FDEA70060ACBC /* LocaleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleState.swift; sourceTree = "<group>"; };
+		8B6155B6284A6F6700DB30E6 /* AccountSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewController.swift; sourceTree = "<group>"; };
 		8BB1C7A72835612B0078DB08 /* OnboardingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerViewController.swift; sourceTree = "<group>"; };
 		8BB1C7A9283566B20078DB08 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		8BD665A0282B1C1300995301 /* Bankey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bankey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,10 +67,17 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		8B6155B8284A6F7600DB30E6 /* AccountSummary */ = {
+			isa = PBXGroup;
+			children = (
+				8B6155B6284A6F6700DB30E6 /* AccountSummaryViewController.swift */,
+			);
+			path = AccountSummary;
+			sourceTree = "<group>";
+		};
 		8BD66597282B1C1300995301 = {
 			isa = PBXGroup;
 			children = (
-				8B53E97828467CF000486A74 /* MainViewController.swift */,
 				8BD665A2282B1C1300995301 /* Bankey */,
 				8BD665A1282B1C1300995301 /* Products */,
 			);
@@ -86,6 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				8BD665A3282B1C1300995301 /* AppDelegate.swift */,
+				8B53E97828467CF000486A74 /* MainViewController.swift */,
+				8B6155B8284A6F7600DB30E6 /* AccountSummary */,
 				8BD665B9282B1E9000995301 /* Login */,
 				8B577CA52834046E0093639C /* Onboarding */,
 				8B5DB88D283FDE950060ACBC /* Utils */,
@@ -191,6 +202,7 @@
 				8BD665A8282B1C1300995301 /* LoginViewController.swift in Sources */,
 				8BB1C7AA283566B20078DB08 /* OnboardingViewController.swift in Sources */,
 				8B53E97928467CF000486A74 /* MainViewController.swift in Sources */,
+				8B6155B7284A6F6700DB30E6 /* AccountSummaryViewController.swift in Sources */,
 				8BD665A4282B1C1300995301 /* AppDelegate.swift in Sources */,
 				8BB1C7A82835612B0078DB08 /* OnboardingContainerViewController.swift in Sources */,
 			);
