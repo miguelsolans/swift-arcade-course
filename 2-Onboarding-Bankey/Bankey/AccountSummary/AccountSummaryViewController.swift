@@ -31,8 +31,20 @@ class AccountSummaryViewController: UIViewController {
 extension AccountSummaryViewController {
     func setup() {
         setupTableView();
+        setupTableHeaderView();
     }
     
+    func setupTableHeaderView() {
+        // No initial size
+        let header = AccountSummaryHeaderView(frame: .zero);
+        
+        // Layout itself out in the smallest format it can
+        var size = header.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        size.width = UIScreen.main.bounds.width;
+        header.frame.size = size;
+        
+        tableView.tableHeaderView = header;
+    }
     
     func setupTableView() {
         self.tableView.delegate = self;
