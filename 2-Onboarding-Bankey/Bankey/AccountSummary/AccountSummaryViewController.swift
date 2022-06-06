@@ -50,6 +50,10 @@ extension AccountSummaryViewController {
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         
+        self.tableView.register(AccountSummaryCell.self, forCellReuseIdentifier: AccountSummaryCell.reuseID);
+        self.tableView.rowHeight = AccountSummaryCell.rowHeight;
+        self.tableView.tableFooterView = UIView();
+        
         self.tableView.translatesAutoresizingMaskIntoConstraints = false;
         self.view.addSubview(self.tableView);
         
@@ -69,9 +73,9 @@ extension AccountSummaryViewController : UITableViewDataSource {
     
     // MARK: - UITableView Data Source Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell();
+        let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummaryCell.reuseID, for: indexPath) as! AccountSummaryCell
         
-        cell.textLabel?.text = self.games[ indexPath.row ];
+        
         
         return cell;
     }
@@ -88,6 +92,6 @@ extension AccountSummaryViewController : UITableViewDataSource {
 
 extension AccountSummaryViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
