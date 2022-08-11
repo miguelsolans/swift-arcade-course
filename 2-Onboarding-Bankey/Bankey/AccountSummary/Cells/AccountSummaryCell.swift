@@ -10,6 +10,24 @@ import UIKit
 
 class AccountSummaryCell : UITableViewCell {
     
+    enum AccountType: String {
+        case Banking
+        case CreditCard
+        case Investment
+    }
+    
+    struct ViewModel {
+        let accountType: AccountType
+        let accountName: String
+        let balance: Double
+        
+        var balanceAsAttributedString: NSAttributedString {
+            return CurrencyFormatter().makeAttributedCurrency(balance)
+        }
+    }
+    
+    let viewModel: ViewModel? = nil;
+    
     let typeLabel = UILabel();
     let underlineView = UIView();
     let nameLabel = UILabel();
@@ -62,8 +80,6 @@ extension AccountSummaryCell {
         
         self.balanceAmountLabel.translatesAutoresizingMaskIntoConstraints = false;
         self.balanceAmountLabel.textAlignment = .center;
-        self.balanceAmountLabel.attributedText = self.makeFormattedBalance(dollars: "929,466", cents: "63") // "$929,466.63"
-        
         
         self.balanceStackView.addArrangedSubview(self.balanceLabel);
         self.balanceStackView.addArrangedSubview(self.balanceAmountLabel);
@@ -105,19 +121,28 @@ extension AccountSummaryCell {
             trailingAnchor.constraint(equalToSystemSpacingAfter: chevronImageView.trailingAnchor, multiplier: 1)
         ])
     }
-    
-    private func makeFormattedBalance(dollars: String, cents: String) -> NSMutableAttributedString {
-        let dollarSignAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
-        let dollarAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .title1)]
-        let centAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote), .baselineOffset: 8]
+}
+
+
+extension AccountSummaryCell {
+    func configure(with viewModel: ViewModel) {
+        typeLabel.text = viewModel.accountType.rawValue
+        nameLabel.text = viewModel.accountName
+        balanceAmountLabel.attributedText = viewModel.balanceAsAttributedString
         
-        let rootString = NSMutableAttributedString(string: "$", attributes: dollarSignAttributes)
-        let dollarString = NSAttributedString(string: dollars, attributes: dollarAttributes)
-        let centString = NSAttributedString(string: cents, attributes: centAttributes)
-        
-        rootString.append(dollarString)
-        rootString.append(centString)
-        
-        return rootString
+        switch viewModel.accountType {
+            case .Banking:
+                underlineView.backgroundColor = appColor
+                balanceLabel.text = "Current Balance"
+                break
+            case .CreditCard:
+                underlineView.backgroundColor = .systemOrange;
+                balanceLabel.text = "Balance";
+                break
+            case .Investment:
+                underlineView.backgroundColor = .systemPurple
+                balanceLabel.text = "Value"
+                break
+        }
     }
 }
