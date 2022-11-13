@@ -19,7 +19,7 @@ class MainViewController: UITabBarController {
         let moveMoneyViewController = MoveMoneyViewController();
         let moreViewController = MoreViewController();
         
-        summaryViewController.setTabBarImage(imageName: "list.dash.header.rectange", title: "Summary");
+        summaryViewController.setTabBarImage(imageName: "creditcard", title: "Summary");
         moveMoneyViewController.setTabBarImage(imageName: "arrow.left.arrow.right", title: "Move Money");
         moreViewController.setTabBarImage(imageName: "ellipsis.circle", title: "More");
         

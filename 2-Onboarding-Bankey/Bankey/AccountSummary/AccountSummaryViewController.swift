@@ -11,6 +11,13 @@ class AccountSummaryViewController: UIViewController {
     
     var accounts: [AccountSummaryCell.ViewModel] = []
     let tableView = UITableView();
+    
+    // lazy var : are a different way to instantiate on ViewControllers. It will only be instiantated when called.
+    lazy var logoutBarButtonItem : UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
+        barButtonItem.tintColor = .label
+        return barButtonItem
+    }();
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +31,13 @@ class AccountSummaryViewController: UIViewController {
 
 extension AccountSummaryViewController {
     func setup() {
+        setupNavigationBar();
         setupTableView();
         setupTableHeaderView();
+    }
+    
+    func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = logoutBarButtonItem;
     }
     
     func setupTableHeaderView() {
@@ -124,5 +136,12 @@ extension AccountSummaryViewController {
         accounts.append(investment2)
         
         self.tableView.reloadData()
+    }
+}
+
+// MARK: - Actions
+extension AccountSummaryViewController {
+    @objc func logoutTapped() {
+        NotificationCenter.default.post(name: .logout, object: nil);
     }
 }

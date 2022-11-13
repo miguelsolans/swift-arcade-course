@@ -76,6 +76,7 @@ extension AccountSummaryCell {
         self.balanceLabel.font = UIFont.preferredFont(forTextStyle: .body);
         self.balanceLabel.textAlignment = .right;
         self.balanceLabel.text = "Some balance";
+        self.balanceLabel.adjustsFontSizeToFitWidth = true // This will reduce the size of the font to fit the screen
         
         
         self.balanceAmountLabel.translatesAutoresizingMaskIntoConstraints = false;

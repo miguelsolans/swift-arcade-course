@@ -48,6 +48,7 @@ extension LoginView {
         self.passwordTextField.placeholder = "Password";
         self.passwordTextField.isSecureTextEntry = true
         self.passwordTextField.delegate = self;
+        self.passwordTextField.enablePasswordToggle()
         
         // StackView Setup
         self.stackView.translatesAutoresizingMaskIntoConstraints = false;
