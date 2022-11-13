@@ -23,6 +23,7 @@
 		8BD665B0282B1C1400995301 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BD665AE282B1C1400995301 /* LaunchScreen.storyboard */; };
 		8BD665BB282B1EC200995301 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD665BA282B1EC200995301 /* LoginView.swift */; };
 		8BEF576D283BF4EF0071DFC0 /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF576C283BF4EF0071DFC0 /* DummyViewController.swift */; };
+		8BFBCF212921A12F008FDF6D /* DecimalUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFBCF202921A12F008FDF6D /* DecimalUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		8BD665B1282B1C1400995301 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BD665BA282B1EC200995301 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8BEF576C283BF4EF0071DFC0 /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
+		8BFBCF202921A12F008FDF6D /* DecimalUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				8B5DB88E283FDEA70060ACBC /* LocaleState.swift */,
 				8B53E97628467AF200486A74 /* UIViewController+Utils.swift */,
 				8B359E8F28A54FB700B1D376 /* CurrencyFormatter.swift */,
+				8BFBCF202921A12F008FDF6D /* DecimalUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				8BB1C7AA283566B20078DB08 /* OnboardingViewController.swift in Sources */,
 				8B53E97928467CF000486A74 /* MainViewController.swift in Sources */,
 				8B6155B7284A6F6700DB30E6 /* AccountSummaryViewController.swift in Sources */,
+				8BFBCF212921A12F008FDF6D /* DecimalUtil.swift in Sources */,
 				8BD665A4282B1C1300995301 /* AppDelegate.swift in Sources */,
 				8BB1C7A82835612B0078DB08 /* OnboardingContainerViewController.swift in Sources */,
 			);
