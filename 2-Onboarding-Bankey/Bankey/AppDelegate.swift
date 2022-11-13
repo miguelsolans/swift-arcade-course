@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let loginViewController = LoginViewController();
     let onboardingContainerViewController = OnboardingContainerViewController();
-    let dummyViewController = DummyViewController()
     let mainViewController = MainViewController();
     
     
@@ -27,15 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible();
         window?.backgroundColor = .systemBackground;
         
-        self.onboardingContainerViewController.delegate = self;
-        self.loginViewController.delegate = self;
+        let vc = mainViewController;
+        vc.setStatusBar();
         
-        self.dummyViewController.logoutDelegate = self;
+        UINavigationBar.appearance().isTranslucent = false;
+        UINavigationBar.appearance().backgroundColor = appColor;
         
-        self.mainViewController.selectedIndex = 1
-        
-        // window?.rootViewController = self.loginViewController
-        window?.rootViewController = AccountSummaryViewController();
+        window?.rootViewController = vc;
         
         return true
     }
