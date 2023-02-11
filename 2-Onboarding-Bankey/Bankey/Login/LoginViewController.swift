@@ -154,7 +154,13 @@ extension LoginViewController {
             assertionFailure("Username / password should never be nil")
             return
         }
-        if username == "" && password == "" {
+        
+        if(username.isEmpty || password.isEmpty) {
+            configureView(withMessage: "Username / password cannot be blank")
+            return
+        }
+        
+        if username == "miguelsolans" && password == "welcome " {
             signInButton.configuration?.showsActivityIndicator = true
             delegate?.didLogin()
         } else {
@@ -165,6 +171,21 @@ extension LoginViewController {
     private func configureView(withMessage message: String) {
         errorMessageLabel.isHidden = false
         errorMessageLabel.text = message
+        self.shakeButton();
+    }
+    
+    func shakeButton() {
+        let animation = CAKeyframeAnimation();
+        animation.keyPath = "position.x";
+        // positive -> right
+        // negative -> left
+        animation.values = [0, 10, -10, 10, 0];
+        animation.keyTimes = [0, 0.16, 0.5, 0.83, 1]
+        animation.duration = 0.4;
+
+        animation.isAdditive = true;
+        // key can be whatever we'd like
+        signInButton.layer.add(animation, forKey: "shake");
     }
 }
 
