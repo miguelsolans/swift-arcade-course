@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = .systemBackground;
         
         let vc = loginViewController;
+        loginViewController.delegate = self;
+        onboardingContainerViewController.delegate = self;
         vc.setStatusBar();
         
         UINavigationBar.appearance().isTranslucent = false;

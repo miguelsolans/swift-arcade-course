@@ -160,7 +160,7 @@ extension LoginViewController {
             return
         }
         
-        if username == "miguelsolans" && password == "welcome " {
+        if username == "miguelsolans" && password == "welcome" {
             signInButton.configuration?.showsActivityIndicator = true
             delegate?.didLogin()
         } else {
