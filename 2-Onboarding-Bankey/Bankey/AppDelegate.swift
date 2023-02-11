@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible();
         window?.backgroundColor = .systemBackground;
         
-        let vc = mainViewController;
+        let vc = loginViewController;
         vc.setStatusBar();
         
         UINavigationBar.appearance().isTranslucent = false;

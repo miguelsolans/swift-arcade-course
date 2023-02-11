@@ -7,160 +7,189 @@
 
 import UIKit
 
-
 protocol LogoutDelegate: AnyObject {
-    func didLogout();
+    func didLogout()
 }
 
 protocol LoginViewControllerDelegate: AnyObject {
-    // convention to pass data to whoever conforms this delegate
-    // func didLogin(_ sender: LoginViewController)
-    
-    
     func didLogin()
 }
 
 class LoginViewController: UIViewController {
+
+    let titleLabel = UILabel()
+    let subtitleLabel = UILabel()
     
-    // weak to avoid retain cycles
+    let loginView = LoginView()
+    let signInButton = UIButton(type: .system)
+    let errorMessageLabel = UILabel()
+    
     weak var delegate: LoginViewControllerDelegate?
     
-    
-    let loginView = LoginView();
-    
-    let appTitleLabel = UILabel();
-    let appDescriptionLabel = UILabel();
-    let stackView = UIStackView();
-    
-    let signInButton = UIButton(type: .system);
-    let errorMessageLabel = UILabel();
-    
-    var username: String?  {
-        return loginView.usernameTextField.text;
+    var username: String? {
+        return loginView.usernameTextField.text
     }
+
     var password: String? {
-        return loginView.passwordTextField.text;
+        return loginView.passwordTextField.text
     }
     
+    // animation
+    var leadingEdgeOnScreen: CGFloat = 16
+    var leadingEdgeOffScreen: CGFloat = -1000
+    
+    var titleLeadingAnchor: NSLayoutConstraint?
+    var subtitleLeadingAnchor: NSLayoutConstraint?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        self.style()
-        self.layout();
-        
+        style()
+        layout()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animate()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        self.signInButton.configuration?.showsActivityIndicator = false
+        super.viewDidDisappear(animated)
+        signInButton.configuration?.showsActivityIndicator = false
     }
-
 }
 
 extension LoginViewController {
+    
     private func style() {
+        view.backgroundColor = .systemBackground
         
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false;
-        self.stackView.axis = .vertical;
-        self.stackView.spacing = 2;
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        titleLabel.adjustsFontForContentSizeCategory = true
+        titleLabel.text = "Bankey"
+        titleLabel.alpha = 0
+
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        subtitleLabel.adjustsFontForContentSizeCategory = true
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.text = "Your premium source for all things banking!"
+        subtitleLabel.alpha = 0
+
+        loginView.translatesAutoresizingMaskIntoConstraints = false
+
+        signInButton.translatesAutoresizingMaskIntoConstraints = false
+        signInButton.configuration = .filled()
+        signInButton.configuration?.imagePadding = 8 // for indicator spacing
+        signInButton.setTitle("Sign In", for: [])
+        signInButton.addTarget(self, action: #selector(signInTapped), for: .primaryActionTriggered)
         
-        self.appTitleLabel.text = "Bankey";
-        self.appTitleLabel.textAlignment = .center;
-        self.appTitleLabel.numberOfLines = 0;
-        self.appTitleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .semibold)
-        
-        self.appDescriptionLabel.text = "Your premium source for all \n things banking!"
-        self.appDescriptionLabel.textAlignment = .center;
-        self.appDescriptionLabel.numberOfLines = 0;
-        self.appDescriptionLabel.lineBreakMode = .byWordWrapping;
-        
-        // Make the view ready for autolayout
-        self.loginView.translatesAutoresizingMaskIntoConstraints = false;
-        
-        self.signInButton.translatesAutoresizingMaskIntoConstraints = false;
-        self.signInButton.configuration = .filled();
-        self.signInButton.configuration?.imagePadding = 8;
-        self.signInButton.setTitle("Login", for: []);
-        self.signInButton.addTarget(self, action: #selector(signInTapped), for: .primaryActionTriggered);
-        
-        // Error Label
-        self.errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false;
-        self.errorMessageLabel.textColor = .red;
-        self.errorMessageLabel.textAlignment = .center;
-        self.errorMessageLabel.numberOfLines = 0;
-        self.errorMessageLabel.isHidden = true;
+        errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorMessageLabel.textAlignment = .center
+        errorMessageLabel.textColor = .systemRed
+        errorMessageLabel.numberOfLines = 0
+        errorMessageLabel.isHidden = true
     }
     
     private func layout() {
-        self.view.addSubview(self.stackView);
-        self.view.addSubview(self.loginView)
-        self.view.addSubview(self.signInButton)
-        self.view.addSubview(self.errorMessageLabel)
-        
-        // App Title and Description
-        self.stackView.addArrangedSubview(self.appTitleLabel);
-        self.stackView.addArrangedSubview(self.appDescriptionLabel);
-        
+        view.addSubview(titleLabel)
+        view.addSubview(subtitleLabel)
+        view.addSubview(loginView)
+        view.addSubview(signInButton)
+        view.addSubview(errorMessageLabel)
+
+        // Title
         NSLayoutConstraint.activate([
-            self.stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.stackView.heightAnchor.constraint(equalToConstant: 80),
-            self.stackView.bottomAnchor.constraint(equalToSystemSpacingBelow: self.loginView.topAnchor, multiplier: -4)
-        ]);
+            subtitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 3),
+            titleLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor)
+        ])
+            
+        titleLeadingAnchor = titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingEdgeOffScreen)
+        titleLeadingAnchor?.isActive = true
         
-        // LoginView Constraints
+        // Subtitle
+        // Subtitle
         NSLayoutConstraint.activate([
-            self.loginView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            self.loginView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1), // put 8 points off the side
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: self.loginView.trailingAnchor, multiplier: 1) // we use view.trailing anchor because of RTL
-        ]);
+            loginView.topAnchor.constraint(equalToSystemSpacingBelow: subtitleLabel.bottomAnchor, multiplier: 3),
+            subtitleLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor)
+        ])
+            
+        subtitleLeadingAnchor = subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingEdgeOffScreen)
+        subtitleLeadingAnchor?.isActive = true
         
-        // Sign In Button Constraints
+        // LoginView
         NSLayoutConstraint.activate([
-            self.signInButton.topAnchor.constraint(equalToSystemSpacingBelow: self.loginView.bottomAnchor, multiplier: 1),
-            self.signInButton.leadingAnchor.constraint(equalTo: self.loginView.leadingAnchor),
-            self.signInButton.trailingAnchor.constraint(equalTo: self.loginView.trailingAnchor),
-            self.signInButton.heightAnchor.constraint(equalToConstant: 40)
-        ]);
+            loginView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: loginView.trailingAnchor, multiplier: 2),
+            view.centerYAnchor.constraint(equalTo: loginView.centerYAnchor),
+        ])
         
-        // Error Label Constraints
+        // Button
         NSLayoutConstraint.activate([
-            self.errorMessageLabel.topAnchor.constraint(equalToSystemSpacingBelow: self.signInButton.bottomAnchor, multiplier: 2),
-            self.errorMessageLabel.leadingAnchor.constraint(equalTo: self.loginView.leadingAnchor),
-            self.errorMessageLabel.trailingAnchor.constraint(equalTo: self.loginView.trailingAnchor),
-        ]);
+            signInButton.topAnchor.constraint(equalToSystemSpacingBelow: loginView.bottomAnchor, multiplier: 2),
+            signInButton.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
+            signInButton.trailingAnchor.constraint(equalTo: loginView.trailingAnchor),
+        ])
+        
+        // Error message
+        NSLayoutConstraint.activate([
+            errorMessageLabel.topAnchor.constraint(equalToSystemSpacingBelow: signInButton.bottomAnchor, multiplier: 2),
+            errorMessageLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
+            errorMessageLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor)
+        ])
     }
 }
 
-// MARK: - Actions
+// MARK: Actions
 extension LoginViewController {
-    @objc func signInTapped() {
-        
-        errorMessageLabel.isHidden = true;
-        self.login();
-        
+    @objc func signInTapped(sender: UIButton) {
+        errorMessageLabel.isHidden = true
+        login()
     }
     
     private func login() {
-        guard let username = self.username, let password = self.password else {
-            assertionFailure("Username / Password should never be nil");
+        guard let username = username, let password = password else {
+            assertionFailure("Username / password should never be nil")
             return
         }
-        
-        if username.isEmpty || password.isEmpty {
-            self.configureView(withMessage: "Username / Password cannot be blank")
-        }
-        
-        if username == "Miguel" && password == "welcome" {
-            signInButton.configuration?.showsActivityIndicator = true;
-            self.delegate?.didLogin()
+        if username == "" && password == "" {
+            signInButton.configuration?.showsActivityIndicator = true
+            delegate?.didLogin()
         } else {
-            self.configureView(withMessage: "Incorrect Username / Password");
+            configureView(withMessage: "Incorrect username / password")
         }
     }
     
     private func configureView(withMessage message: String) {
-        self.errorMessageLabel.isHidden = false;
-        self.errorMessageLabel.text = message;
+        errorMessageLabel.isHidden = false
+        errorMessageLabel.text = message
     }
 }
 
+// MARK: - Animations
+extension LoginViewController {
+    private func animate() {
+        let duration = 0.8
+        
+        let animator1 = UIViewPropertyAnimator(duration: duration, curve: .easeInOut) {
+            self.titleLeadingAnchor?.constant = self.leadingEdgeOnScreen
+            self.view.layoutIfNeeded()
+        }
+        animator1.startAnimation()
+        
+        let animator2 = UIViewPropertyAnimator(duration: duration, curve: .easeInOut) {
+            self.subtitleLeadingAnchor?.constant = self.leadingEdgeOnScreen
+            self.view.layoutIfNeeded()
+        }
+        animator2.startAnimation(afterDelay: 0.2)
+        
+        let animator3 = UIViewPropertyAnimator(duration: duration*2, curve: .easeInOut) {
+            self.titleLabel.alpha = 1
+            self.subtitleLabel.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+        animator3.startAnimation(afterDelay: 0.2)
+    }
+}
