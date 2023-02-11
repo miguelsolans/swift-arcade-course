@@ -22,6 +22,7 @@
 		8BD665AD282B1C1400995301 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BD665AC282B1C1400995301 /* Assets.xcassets */; };
 		8BD665B0282B1C1400995301 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BD665AE282B1C1400995301 /* LaunchScreen.storyboard */; };
 		8BD665BB282B1EC200995301 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD665BA282B1EC200995301 /* LoginView.swift */; };
+		8BEA1D3B2997E4D800F43355 /* ShakeyBellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEA1D3A2997E4D800F43355 /* ShakeyBellView.swift */; };
 		8BEF576D283BF4EF0071DFC0 /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF576C283BF4EF0071DFC0 /* DummyViewController.swift */; };
 		8BFBCF212921A12F008FDF6D /* DecimalUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFBCF202921A12F008FDF6D /* DecimalUtil.swift */; };
 		8BFBCF232921A74E008FDF6D /* NSNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFBCF222921A74E008FDF6D /* NSNotificationName.swift */; };
@@ -46,6 +47,7 @@
 		8BD665AF282B1C1400995301 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BD665B1282B1C1400995301 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BD665BA282B1EC200995301 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		8BEA1D3A2997E4D800F43355 /* ShakeyBellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeyBellView.swift; sourceTree = "<group>"; };
 		8BEF576C283BF4EF0071DFC0 /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		8BFBCF202921A12F008FDF6D /* DecimalUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalUtil.swift; sourceTree = "<group>"; };
 		8BFBCF222921A74E008FDF6D /* NSNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationName.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		8BD665A2282B1C1300995301 /* Bankey */ = {
 			isa = PBXGroup;
 			children = (
+				8BEA1D392997E4C100F43355 /* Components */,
 				8BD665A3282B1C1300995301 /* AppDelegate.swift */,
 				8B53E97828467CF000486A74 /* MainViewController.swift */,
 				8B6155B8284A6F7600DB30E6 /* AccountSummary */,
@@ -160,6 +163,14 @@
 				8BD665BA282B1EC200995301 /* LoginView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		8BEA1D392997E4C100F43355 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8BEA1D3A2997E4D800F43355 /* ShakeyBellView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +255,7 @@
 				8BFBCF232921A74E008FDF6D /* NSNotificationName.swift in Sources */,
 				8BCDCF6A284E51A6004B456B /* AccountSummaryCell.swift in Sources */,
 				8BB1C7AA283566B20078DB08 /* OnboardingViewController.swift in Sources */,
+				8BEA1D3B2997E4D800F43355 /* ShakeyBellView.swift in Sources */,
 				8B53E97928467CF000486A74 /* MainViewController.swift in Sources */,
 				8B6155B7284A6F6700DB30E6 /* AccountSummaryViewController.swift in Sources */,
 				8BFBCF212921A12F008FDF6D /* DecimalUtil.swift in Sources */,
