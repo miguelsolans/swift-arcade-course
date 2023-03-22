@@ -11,6 +11,9 @@ class ShakeyBellView : UIView {
     
     let imageView = UIImageView();
     
+    let buttonView = UIButton();
+    let buttonHeight: CGFloat = 16;
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -41,16 +44,34 @@ extension ShakeyBellView {
         self.imageView.translatesAutoresizingMaskIntoConstraints = false;
         let image = UIImage(systemName: "bell.fill")!.withTintColor(.white, renderingMode: .alwaysOriginal);
         self.imageView.image = image;
+        
+        self.buttonView.translatesAutoresizingMaskIntoConstraints = false;
+        self.buttonView.backgroundColor = .red;
+        self.buttonView.titleLabel?.font = UIFont.systemFont(ofSize: 13);
+        self.buttonView.layer.cornerRadius = self.buttonHeight / 2;
+        self.buttonView.setTitle("9", for: .normal);
+        self.buttonView.setTitleColor(.white, for: .normal)
     }
     
     func layout() {
         self.addSubview(imageView);
+        self.addSubview(buttonView);
         
+        // Image View
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 24),
             imageView.widthAnchor.constraint(equalToConstant: 24)
+        ]);
+        
+        // Button
+        NSLayoutConstraint.activate([
+            buttonView.topAnchor.constraint(equalTo: self.imageView.topAnchor),
+            // We will bring the Button back 9 points relatively to the ImageView trailing anchor
+            buttonView.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: -9),
+            buttonView.widthAnchor.constraint(equalToConstant: self.buttonHeight),
+            buttonView.heightAnchor.constraint(equalToConstant: self.buttonHeight)
         ]);
     }
 }
