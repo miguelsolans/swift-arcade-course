@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B051F3629CBB40300D4E802 /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B051F3529CBB40300D4E802 /* UIView+Utils.swift */; };
 		8B359E9028A54FB700B1D376 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B359E8F28A54FB700B1D376 /* CurrencyFormatter.swift */; };
 		8B53E97728467AF200486A74 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B53E97628467AF200486A74 /* UIViewController+Utils.swift */; };
 		8B53E97928467CF000486A74 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B53E97828467CF000486A74 /* MainViewController.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B051F3529CBB40300D4E802 /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
 		8B359E8F28A54FB700B1D376 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		8B53E97628467AF200486A74 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		8B53E97828467CF000486A74 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				8BFBCF222921A74E008FDF6D /* NSNotificationName.swift */,
 				8B5DB88E283FDEA70060ACBC /* LocaleState.swift */,
 				8B359E8F28A54FB700B1D376 /* CurrencyFormatter.swift */,
+				8B051F3529CBB40300D4E802 /* UIView+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				8B6155B7284A6F6700DB30E6 /* AccountSummaryViewController.swift in Sources */,
 				8BFBCF212921A12F008FDF6D /* DecimalUtil.swift in Sources */,
 				8BD665A4282B1C1300995301 /* AppDelegate.swift in Sources */,
+				8B051F3629CBB40300D4E802 /* UIView+Utils.swift in Sources */,
 				8BB1C7A82835612B0078DB08 /* OnboardingContainerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,6 +410,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,6 +438,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

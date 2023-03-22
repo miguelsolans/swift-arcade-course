@@ -14,6 +14,7 @@ class ShakeyBellView : UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame);
+        setup();
         style();
         layout();
     }
@@ -29,10 +30,16 @@ class ShakeyBellView : UIView {
 }
 
 extension ShakeyBellView {
+    func setup() {
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)));
+        self.imageView.addGestureRecognizer(singleTap);
+        self.imageView.isUserInteractionEnabled = true;
+    }
+    
     func style() {
         self.translatesAutoresizingMaskIntoConstraints = false;
         self.imageView.translatesAutoresizingMaskIntoConstraints = false;
-        let image = UIImage(named: "bell.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal);
+        let image = UIImage(systemName: "bell.fill")!.withTintColor(.white, renderingMode: .alwaysOriginal);
         self.imageView.image = image;
     }
     
@@ -47,3 +54,48 @@ extension ShakeyBellView {
         ]);
     }
 }
+
+extension ShakeyBellView {
+    @objc func imageViewTapped(_ recognizer: UITapGestureRecognizer) {
+       // Animation should go here
+        print("Bell tapped!!");
+        self.shakeWith(duration: 1.0, angle: .pi/8, yOffset: 0.0)
+    }
+    
+    private func shakeWith(duration: Double, angle: Double, yOffset: Double) {
+        let numberOfFrames: Double = 6;
+        let frameDuration = 1/numberOfFrames; // We need to normalize it by 1
+        
+        self.imageView.setAnchorPoint(CGPoint(x: 0.5, y: yOffset))
+        
+        UIView.animateKeyframes(withDuration: duration, delay: 0, options:[]) {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: frameDuration) {
+                self.imageView.transform = CGAffineTransform(rotationAngle: -angle);
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: frameDuration, relativeDuration: frameDuration) {
+                self.imageView.transform = CGAffineTransform(rotationAngle: angle);
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: frameDuration*2, relativeDuration: frameDuration) {
+                self.imageView.transform = CGAffineTransform(rotationAngle: -angle);
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: frameDuration*3, relativeDuration: frameDuration) {
+                self.imageView.transform = CGAffineTransform(rotationAngle: angle);
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: frameDuration*4, relativeDuration: frameDuration) {
+                self.imageView.transform = CGAffineTransform(rotationAngle: -angle);
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: frameDuration*5, relativeDuration: frameDuration) {
+                self.imageView.transform = CGAffineTransform.identity; // reset to original starting point 
+            }
+        }
+        
+    }
+}
+
+
+
