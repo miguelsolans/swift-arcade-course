@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8B051F3629CBB40300D4E802 /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B051F3529CBB40300D4E802 /* UIView+Utils.swift */; };
+		8B051F3829CF65A600D4E802 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B051F3729CF65A600D4E802 /* Date+Utils.swift */; };
+		8B051F3A29CF66CF00D4E802 /* AccountSummaryViewController+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B051F3929CF66CF00D4E802 /* AccountSummaryViewController+Networking.swift */; };
 		8B359E9028A54FB700B1D376 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B359E8F28A54FB700B1D376 /* CurrencyFormatter.swift */; };
 		8B53E97728467AF200486A74 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B53E97628467AF200486A74 /* UIViewController+Utils.swift */; };
 		8B53E97928467CF000486A74 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B53E97828467CF000486A74 /* MainViewController.swift */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		8B051F3529CBB40300D4E802 /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
+		8B051F3729CF65A600D4E802 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
+		8B051F3929CF66CF00D4E802 /* AccountSummaryViewController+Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSummaryViewController+Networking.swift"; sourceTree = "<group>"; };
 		8B359E8F28A54FB700B1D376 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		8B53E97628467AF200486A74 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		8B53E97828467CF000486A74 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 				8B5DB88E283FDEA70060ACBC /* LocaleState.swift */,
 				8B359E8F28A54FB700B1D376 /* CurrencyFormatter.swift */,
 				8B051F3529CBB40300D4E802 /* UIView+Utils.swift */,
+				8B051F3729CF65A600D4E802 /* Date+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -96,6 +101,7 @@
 				8B6155B6284A6F6700DB30E6 /* AccountSummaryViewController.swift */,
 				8BCDCF67284E5170004B456B /* Header */,
 				8BCDCF68284E5182004B456B /* Cells */,
+				8B051F3929CF66CF00D4E802 /* AccountSummaryViewController+Networking.swift */,
 			);
 			path = AccountSummary;
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B53E97728467AF200486A74 /* UIViewController+Utils.swift in Sources */,
+				8B051F3A29CF66CF00D4E802 /* AccountSummaryViewController+Networking.swift in Sources */,
 				8BD665BB282B1EC200995301 /* LoginView.swift in Sources */,
 				8BEF576D283BF4EF0071DFC0 /* DummyViewController.swift in Sources */,
 				8B6155BA284A737700DB30E6 /* AccountSummaryHeaderView.swift in Sources */,
@@ -265,6 +272,7 @@
 				8BD665A4282B1C1300995301 /* AppDelegate.swift in Sources */,
 				8B051F3629CBB40300D4E802 /* UIView+Utils.swift in Sources */,
 				8BB1C7A82835612B0078DB08 /* OnboardingContainerViewController.swift in Sources */,
+				8B051F3829CF65A600D4E802 /* Date+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

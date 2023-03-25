@@ -9,8 +9,16 @@ import UIKit
 
 class AccountSummaryViewController: UIViewController {
     
-    var accounts: [AccountSummaryCell.ViewModel] = []
+    // Request models
+    var profile: Profile?
+    var accounts: [Account]?
+    
+    // View Models
+    var headerViewModel = AccountSummaryHeaderView.ViewModel(welcomeMessage: "Welcome", name: "", date: Date())
+    var accountsCellViewModel: [AccountSummaryCell.ViewModel] = []
+    
     let tableView = UITableView();
+    var headerView = AccountSummaryHeaderView(frame: .zero);
     
     // lazy var : are a different way to instantiate on ViewControllers. It will only be instiantated when called.
     lazy var logoutBarButtonItem : UIBarButtonItem = {
@@ -23,10 +31,9 @@ class AccountSummaryViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setup();
-        fetchData();
+        // fetchAccounts();
+        fetchDataAndLoadView();
     }
-    
-
 }
 
 extension AccountSummaryViewController {
@@ -42,14 +49,14 @@ extension AccountSummaryViewController {
     
     func setupTableHeaderView() {
         // No initial size
-        let header = AccountSummaryHeaderView(frame: .zero);
+        self.headerView = AccountSummaryHeaderView(frame: .zero);
         
         // Layout itself out in the smallest format it can
-        var size = header.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        var size = self.headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         size.width = UIScreen.main.bounds.width;
-        header.frame.size = size;
+        self.headerView.frame.size = size;
         
-        tableView.tableHeaderView = header;
+        tableView.tableHeaderView = self.headerView;
     }
     
     func setupTableView() {
@@ -81,11 +88,11 @@ extension AccountSummaryViewController : UITableViewDataSource {
     // MARK: - UITableView Data Source Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard !accounts.isEmpty else { return UITableViewCell() }
+        guard !accountsCellViewModel.isEmpty else { return UITableViewCell() }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummaryCell.reuseID, for: indexPath) as! AccountSummaryCell
         
-        let account = self.accounts[ indexPath.row ];
+        let account = self.accountsCellViewModel[ indexPath.row ];
         
         cell.configure(with: account)
         
@@ -97,7 +104,7 @@ extension AccountSummaryViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.accounts.count
+        self.accountsCellViewModel.count
     }
     
 }
@@ -108,40 +115,48 @@ extension AccountSummaryViewController : UITableViewDelegate {
     }
 }
 
-extension AccountSummaryViewController {
-    private func fetchData() {
-        let savings = AccountSummaryCell.ViewModel(accountType: .Banking,
-                                                            accountName: "Basic Savings",
-                                                        balance: 929466.23)
-        let chequing = AccountSummaryCell.ViewModel(accountType: .Banking,
-                                                    accountName: "No-Fee All-In Chequing",
-                                                    balance: 17562.44)
-        let visa = AccountSummaryCell.ViewModel(accountType: .CreditCard,
-                                                       accountName: "Visa Avion Card",
-                                                       balance: 412.83)
-        let masterCard = AccountSummaryCell.ViewModel(accountType: .CreditCard,
-                                                       accountName: "Student Mastercard",
-                                                       balance: 50.83)
-        let investment1 = AccountSummaryCell.ViewModel(accountType: .Investment,
-                                                       accountName: "Tax-Free Saver",
-                                                       balance: 2000.00)
-        let investment2 = AccountSummaryCell.ViewModel(accountType: .Investment,
-                                                       accountName: "Growth Fund",
-                                                       balance: 15000.00)
-        accounts.append(savings)
-        accounts.append(chequing)
-        accounts.append(visa)
-        accounts.append(masterCard)
-        accounts.append(investment1)
-        accounts.append(investment2)
-        
-        self.tableView.reloadData()
-    }
-}
-
 // MARK: - Actions
 extension AccountSummaryViewController {
     @objc func logoutTapped() {
         NotificationCenter.default.post(name: .logout, object: nil);
+    }
+}
+
+// Networking
+extension AccountSummaryViewController {
+    private func fetchDataAndLoadView() {
+        fetchProfile(forUserId: "1") { result in
+            switch result {
+            case .success(let profile):
+                self.profile = profile;
+                self.configureTableHeaderView(with: profile);
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        fetchAccounts(forUserId: "1") { result in
+            switch result {
+            case .success(let accounts):
+                self.accounts = accounts
+                self.configureTableCells(with: accounts);
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    private func configureTableHeaderView(with profile: Profile) {
+        let viewModel = AccountSummaryHeaderView.ViewModel(welcomeMessage: "Good morning,", name: profile.firstName, date: Date());
+        headerView.configure(viewModel: viewModel);
+    }
+    
+    private func configureTableCells(with accounts: [Account]) {
+        self.accountsCellViewModel = accounts.map {
+            AccountSummaryCell.ViewModel(accountType: $0.type, accountName: $0.name, balance: $0.amount)
+        }
     }
 }
