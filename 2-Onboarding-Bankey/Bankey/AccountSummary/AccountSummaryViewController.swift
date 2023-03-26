@@ -17,8 +17,10 @@ class AccountSummaryViewController: UIViewController {
     var headerViewModel = AccountSummaryHeaderView.ViewModel(welcomeMessage: "Welcome", name: "", date: Date())
     var accountsCellViewModel: [AccountSummaryCell.ViewModel] = []
     
+    // Components
     let tableView = UITableView();
     var headerView = AccountSummaryHeaderView(frame: .zero);
+    let refreshControl = UIRefreshControl();
     
     // lazy var : are a different way to instantiate on ViewControllers. It will only be instiantated when called.
     lazy var logoutBarButtonItem : UIBarButtonItem = {
@@ -40,6 +42,7 @@ extension AccountSummaryViewController {
         setupNavigationBar();
         setupTableView();
         setupTableHeaderView();
+        setupRefreshControl();
     }
     
     func setupNavigationBar() {
@@ -77,6 +80,12 @@ extension AccountSummaryViewController {
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ]);
         
+    }
+    
+    private func setupRefreshControl() {
+        self.refreshControl.tintColor = appColor;
+        self.refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged);
+        self.tableView.refreshControl = self.refreshControl;
     }
 }
 
@@ -119,6 +128,10 @@ extension AccountSummaryViewController {
     @objc func logoutTapped() {
         NotificationCenter.default.post(name: .logout, object: nil);
     }
+    
+    @objc func refreshContent() {
+        self.fetchData();
+    }
 }
 
 // Networking
@@ -126,13 +139,15 @@ extension AccountSummaryViewController {
     private func fetchData() {
         let group = DispatchGroup();
         
+        // Testing - random number selection
+        let userId = String(Int.random(in: 1..<4));
+        
         group.enter()
-        fetchProfile(forUserId: "1") { result in
+        fetchProfile(forUserId: userId) { result in
             switch result {
             case .success(let profile):
                 self.profile = profile;
                 self.configureTableHeaderView(with: profile);
-                self.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -140,16 +155,21 @@ extension AccountSummaryViewController {
         }
         
         group.enter()
-        fetchAccounts(forUserId: "1") { result in
+        fetchAccounts(forUserId: userId) { result in
             switch result {
             case .success(let accounts):
                 self.accounts = accounts
                 self.configureTableCells(with: accounts);
-                self.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
             group.leave()
+        }
+        
+        
+        group.notify(queue: .main) {
+            self.tableView.reloadData();
+            self.tableView.refreshControl?.endRefreshing();
         }
     }
     
