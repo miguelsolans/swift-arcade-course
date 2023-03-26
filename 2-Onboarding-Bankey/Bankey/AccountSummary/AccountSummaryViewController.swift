@@ -31,8 +31,7 @@ class AccountSummaryViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setup();
-        // fetchAccounts();
-        fetchDataAndLoadView();
+        fetchData();
     }
 }
 
@@ -124,7 +123,10 @@ extension AccountSummaryViewController {
 
 // Networking
 extension AccountSummaryViewController {
-    private func fetchDataAndLoadView() {
+    private func fetchData() {
+        let group = DispatchGroup();
+        
+        group.enter()
         fetchProfile(forUserId: "1") { result in
             switch result {
             case .success(let profile):
@@ -134,8 +136,10 @@ extension AccountSummaryViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            group.leave()
         }
         
+        group.enter()
         fetchAccounts(forUserId: "1") { result in
             switch result {
             case .success(let accounts):
@@ -145,6 +149,7 @@ extension AccountSummaryViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            group.leave()
         }
     }
     
