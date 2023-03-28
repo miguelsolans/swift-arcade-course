@@ -161,6 +161,23 @@ extension AccountSummaryViewController {
 
 // Networking
 extension AccountSummaryViewController {
+    
+    private func displayAlert(withTitle title: String, andMessage message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel));
+        self.present(alert, animated: true);
+    }
+    
+    private func displayError(_ error: NetworkError) {
+        switch error {
+        case .serverError:
+            self.displayAlert(withTitle: "Network Error", andMessage: "Ensure you are connected to the internet. Please try again.");
+        case .decodingError:
+            self.displayAlert(withTitle: "Decoding Error", andMessage: "We could not proccess your request. Please try again.");
+        }
+        print(error.localizedDescription)
+    }
+    
     private func fetchData() {
         let group = DispatchGroup();
         
@@ -174,7 +191,7 @@ extension AccountSummaryViewController {
                 self.profile = profile;
                 self.configureTableHeaderView(with: profile);
             case .failure(let error):
-                print(error.localizedDescription)
+                self.displayError(error);
             }
             group.leave()
         }
@@ -186,7 +203,7 @@ extension AccountSummaryViewController {
                 self.accounts = accounts
                 self.configureTableCells(with: accounts);
             case .failure(let error):
-                print(error.localizedDescription)
+                self.displayError(error);
             }
             group.leave()
         }
