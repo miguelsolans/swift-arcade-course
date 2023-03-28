@@ -22,6 +22,8 @@ class AccountSummaryViewController: UIViewController {
     var headerView = AccountSummaryHeaderView(frame: .zero);
     let refreshControl = UIRefreshControl();
     
+    var isLoaded = false;
+    
     // lazy var : are a different way to instantiate on ViewControllers. It will only be instiantated when called.
     lazy var logoutBarButtonItem : UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
@@ -42,6 +44,7 @@ extension AccountSummaryViewController {
         setupNavigationBar();
         setupTableView();
         setupTableHeaderView();
+        setupSkeletons();
         setupRefreshControl();
     }
     
@@ -67,6 +70,7 @@ extension AccountSummaryViewController {
         self.tableView.dataSource = self;
         
         self.tableView.register(AccountSummaryCell.self, forCellReuseIdentifier: AccountSummaryCell.reuseID);
+        self.tableView.register(SkeletonCell.self, forCellReuseIdentifier: SkeletonCell.reuseID)
         self.tableView.rowHeight = AccountSummaryCell.rowHeight;
         self.tableView.tableFooterView = UIView();
         
@@ -87,6 +91,13 @@ extension AccountSummaryViewController {
         self.refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged);
         self.tableView.refreshControl = self.refreshControl;
     }
+    
+    private func setupSkeletons() {
+        let row = Account.makeSkeleton();
+        accounts = Array(repeating: row, count: 10);
+        
+        configureTableCells(with: accounts!);
+    }
 }
 
 // MARK: - UITableView Delegate and Data Source Methods
@@ -98,12 +109,17 @@ extension AccountSummaryViewController : UITableViewDataSource {
         
         guard !accountsCellViewModel.isEmpty else { return UITableViewCell() }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummaryCell.reuseID, for: indexPath) as! AccountSummaryCell
+        if self.isLoaded {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummaryCell.reuseID, for: indexPath) as! AccountSummaryCell
+            
+            let account = self.accountsCellViewModel[ indexPath.row ];
+            
+            cell.configure(with: account)
+            
+            return cell;
+        }
         
-        let account = self.accountsCellViewModel[ indexPath.row ];
-        
-        cell.configure(with: account)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonCell.reuseID, for: indexPath) as! SkeletonCell;
         return cell;
     }
     
@@ -130,7 +146,16 @@ extension AccountSummaryViewController {
     }
     
     @objc func refreshContent() {
+        self.reset();
+        self.setupSkeletons()
+        self.tableView.reloadData();
         self.fetchData();
+    }
+    
+    func reset() {
+        profile = nil;
+        accounts = []
+        isLoaded = false;
     }
 }
 
@@ -170,6 +195,7 @@ extension AccountSummaryViewController {
         group.notify(queue: .main) {
             self.tableView.reloadData();
             self.tableView.refreshControl?.endRefreshing();
+            self.isLoaded = true;
         }
     }
     
